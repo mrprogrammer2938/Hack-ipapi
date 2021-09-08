@@ -2,21 +2,32 @@
 # This code write by Mr.nope
 import os
 import time
-import requests
 import sys
 import subprocess
-try:
+import platform
+
+try: ## Try import ipapi and requests. If can't import a message show in the screen with command to install
    import ipapi
+   import requests
 except ImportError:
-    os.system("pip install ipapi")
+    os.system("Please use -> pip install -r requirements.txt")
+
+## Variables
 opt = "\nHack/> "
 ip = "\nEnter host: "
-def cls():
-    os.system("clear")
-class color:
+
+
+def cls(): ## Check the system operative to clean the output in terminal
+    if platform.system == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
+
+class color: ## Class to colors in terminal
      org = '\033[33m'
      End = '\033[0m'
-def main():
+
+def main(): ## Function main of the script
     cls()
     print("--------[ Hack-Ipapi ]--------\n")
     print("Version: 1.2.0\n")
@@ -38,39 +49,47 @@ def main():
     elif choose == '5':
         geoip()
     elif choose == '99':
-        ext()
+        cls()
+        print("\nExiting...") 
     else:
         main()
-def portscan():
+
+
+def portscan(): ## Function to port scan IP Address
     cls()
     host = input(ip)
     attack_1 = requests.get(f"https://api.hackertarget.com/nmap/?q={host}").text
     print(attack_1)
     try1()
-def try1():
-    try_to_portscan = input("\nDo you want to try again? [y/n] ")
+
+def try1(): ## You Choose if want attack again in portscan function
+    try_to_portscan = input("\nDo you want to try again? [y/n] ").lower()
     if try_to_portscan == 'y':
       portscan()
     elif try_to_portscan == 'n':
         main()
     else:
         try1()
-def pingtest():
+
+def pingtest(): ## Function to ping test IP Address
     cls()
     host = input(ip)
     packet = input("\nEnter packet: ")
     attack_2 = subprocess.getoutput(f"ping -w {packet} {host}")
     print(color.org + attack_2 + color.End)
     try2()
-def try2():
-    try_to_pingtest = input("\nDo you want to try again? [y/n] ")
+
+def try2(): ## You Choose if want attack again in pingtest function
+    try_to_pingtest = input("\nDo you want to try again? [y/n] ").lower()
     if try_to_pingtest == 'y':
       pingtest()
     elif try_to_pingtest == 'n':
         main()
     else:
          try2()
-def location():
+
+
+def location(): ## Function to get location of IP Address
     cls()
     host = input(ip)
     search = ipapi.location(ip=host,key=None)
@@ -79,7 +98,8 @@ def location():
     print("org: " + search["org"])
     print("------------------------\n")
     try3()
-def try3():
+
+def try3(): ## You Choose if want get info in location function
     try_to_location = input("\nDo you want to try again? [y/n] ")
     if try_to_location == 'y':
       location()
@@ -87,13 +107,16 @@ def try3():
         main()
     else:
          try3()
-def whois():
+
+def whois(): ## Function to info of IP Address
     cls()
     host = input(ip)
     attack_4 = requests.get(f"https://api.hackertarget.com/whois/?q={host}").text
     print(attack_4)
     try4()
-def try4():
+
+
+def try4(): ## You Choose if want get info again in whois function
     try_to_whois = input("\nDo you want try again? [y/n] ")
     if try_to_whois == 'y':
       whois()
@@ -101,13 +124,15 @@ def try4():
         main()
     else:
         try4()
-def geoip():
+
+def geoip(): ## Function to get GEO of IP Address
     cls()
     host = input(ip)
     attack_5 = requests.get(f"https://api.hackertarget.com/geoip/?q={host}").text
     print(attack_5)
     try5()
-def try5():
+
+def try5(): ## You Choose if want get info again in geoip function
     try_to_geoip = input("\nDo you want to try again? [y/n] ")
     if try_to_geoip == 'y':
       geoip()
@@ -115,15 +140,17 @@ def try5():
         main()
     else:
         try5()
-def ext():
-    cls()
-    print("\nExiting...") 
-    sys.exit()
-if __name__ == '__main__':
-  try:
-     main()
-  except KeyboardInterrupt:
-      print("\nCtrl + C")
-      print("\nExiting...")
-      sys.exit()
 
+
+if __name__ == '__main__': ## To prevent importing into other scripts
+
+    '''
+    This way we can prevent it from being used in other scripts.
+    This conditional is to run under special conditions.
+    '''
+    try:
+        main()
+    except KeyboardInterrupt: ## If user cancel operation this code is executed
+         print("\nCtrl + C")
+         print("\nExiting...")
+         sys.exit()
