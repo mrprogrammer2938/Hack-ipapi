@@ -10,7 +10,8 @@ try: ## Try import ipapi and requests. If can't import a message show in the scr
    import ipapi
    import requests
 except ImportError:
-    os.system("Please use -> pip install -r requirements.txt")
+    print("Installing requirements...")
+    os.system("pip install -r requirements.txt")
 
 ## Variables
 opt = "\nHack/> "
@@ -100,7 +101,7 @@ def location(): ## Function to get location of IP Address
     try3()
 
 def try3(): ## You Choose if want get info in location function
-    try_to_location = input("\nDo you want to try again? [y/n] ")
+    try_to_location = input("\nDo you want to try again? [y/n] ").lower()
     if try_to_location == 'y':
       location()
     elif try_to_location == 'n':
@@ -117,7 +118,7 @@ def whois(): ## Function to info of IP Address
 
 
 def try4(): ## You Choose if want get info again in whois function
-    try_to_whois = input("\nDo you want try again? [y/n] ")
+    try_to_whois = input("\nDo you want try again? [y/n] ").lower()
     if try_to_whois == 'y':
       whois()
     elif try_to_whois == 'n':
@@ -133,7 +134,7 @@ def geoip(): ## Function to get GEO of IP Address
     try5()
 
 def try5(): ## You Choose if want get info again in geoip function
-    try_to_geoip = input("\nDo you want to try again? [y/n] ")
+    try_to_geoip = input("\nDo you want to try again? [y/n] ").lower()
     if try_to_geoip == 'y':
       geoip()
     elif try_to_geoip == 'n':
